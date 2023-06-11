@@ -6,7 +6,7 @@ const cache = {};
 
 function send404(response) {
     response.writeHead(404, {'Content-Type': 'text/plain'})
-    response.write('Error 404:response not found')
+    response.write('Error 404: response not found')
     response.end()
 }
 
@@ -34,8 +34,10 @@ function serveStatic(response, cache, absPath) {
 
 let server = http.createServer(function (request, response) {
     let filePath = false
-    if (request.url == '/') filePath = 'public/index.html'
+
+    if (request.url === '/') filePath = 'public/index.html'
     else filePath = 'public' + request.url
+
     const absPath = './' + filePath
     serveStatic(response, cache, absPath)
 })
@@ -44,5 +46,5 @@ server.listen(3000, function () {
     console.log('Server listening on port 3000.')
 })
 
-var chatServer = require('/lib/chat_server')
+const chatServer = require('./lib/chat_server')
 chatServer.listen(server)
