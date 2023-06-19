@@ -62,12 +62,11 @@ $(document).ready(function () {
     socket.on('rooms', function (rooms) { // 显示可用房间列表
         $('#room-list').empty()
 
-        for (let room in rooms) {
-            room = room.substring(1, room.length)
+        rooms.forEach(room => {
             if (room !== '') {
                 $('#room-list').append(divEscapedContentElement(room))
             }
-        }
+        })
 
         $('#room-list div').click(function () { // 点击房间名可以换到那个房间中
             chatApp.processCommand('/join ' + $(this).text())
